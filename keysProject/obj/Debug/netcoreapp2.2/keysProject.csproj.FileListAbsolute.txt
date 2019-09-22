@@ -1,0 +1,11 @@
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\bin\Debug\netcoreapp2.2\keysProject.deps.json
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\bin\Debug\netcoreapp2.2\keysProject.runtimeconfig.json
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\bin\Debug\netcoreapp2.2\keysProject.runtimeconfig.dev.json
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\bin\Debug\netcoreapp2.2\keysProject.dll
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\bin\Debug\netcoreapp2.2\keysProject.pdb
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.csprojAssemblyReference.cache
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.csproj.CoreCompileInputs.cache
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.AssemblyInfoInputs.cache
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.AssemblyInfo.cs
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.dll
+C:\Users\Abhishek.Bhol\source\repos\keysProject\keysProject\obj\Debug\netcoreapp2.2\keysProject.pdb
