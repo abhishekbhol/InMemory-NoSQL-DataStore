@@ -6,17 +6,11 @@ namespace keysProject
 {
     public class Program
     {
-        public static Dictionary<string, Dictionary<AttributeKey, string>> dataStore;
-        public static Dictionary<string, AttributeTypeEnum> typeStore;
-
-
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Keys Project!");
 
-            InitializeDataStore();
-
-            InitializeTypeStore();
+            var service = new KeyValueService();
 
             string key;
             string option = "1";
@@ -24,10 +18,10 @@ namespace keysProject
             Console.WriteLine("Enter 1st Key : ");
             key = Console.ReadLine();
 
-            var attributeList = new Dictionary<AttributeKey, string>();
-            dataStore.Add(key, attributeList);
+            //adding first key
+            service.HandleNewKeyCase(key);
 
-            while(option != "6")
+            while (option != "6")
             {
                 PrintAllOptions();
 
@@ -48,7 +42,7 @@ namespace keysProject
                             Console.WriteLine("Enter Attribute Value : ");
                             var attrValue = Console.ReadLine();
 
-                            HandleAddAttributeCase(key, attrkey, attrValue);
+                            service.HandleAddAttributeCase(key, attrkey, attrValue);
                             break;
 
                         case "2":
@@ -56,7 +50,7 @@ namespace keysProject
                             Console.WriteLine("Enter New Key :");
                             key = Console.ReadLine();
 
-                            HandleNewKeyCase(key);
+                            service.HandleNewKeyCase(key);
                             break;
 
                         case "3":
@@ -64,7 +58,7 @@ namespace keysProject
                             Console.WriteLine("Enter Key Name :");
                             var printkey = Console.ReadLine();
 
-                            HandlePrintValueCase(printkey);
+                            service.HandlePrintValueCase(printkey);
                             break;
 
                         case "4":
@@ -72,7 +66,7 @@ namespace keysProject
                             Console.WriteLine("Enter Key Name you want to delete :");
                             var delkey = Console.ReadLine();
 
-                            HandleDeleteKeyCase(delkey);
+                            service.HandleDeleteKeyCase(delkey);
                             break;
 
                         case "5":
@@ -83,7 +77,7 @@ namespace keysProject
                             Console.WriteLine("Enter Attribute value :");
                             var printAttrVal = Console.ReadLine();
 
-                            HandleQueryOnAttributeValue(printAttrName, printAttrVal);
+                            service.HandleQueryOnAttributeValue(printAttrName, printAttrVal);
                             break;
 
 
@@ -110,111 +104,5 @@ namespace keysProject
             Console.WriteLine("Press 5 to perform secondary index scan : ");
             Console.WriteLine("Press 6 to EXIT : ");
         }
-
-        private static void HandleQueryOnAttributeValue(string printAttrName, string printAttrVal)
-        {
-            foreach (KeyValuePair<string, Dictionary<AttributeKey, string>> topKeyVal in dataStore)
-            {
-                var attributeWithValExists = topKeyVal.Value.Select(a => a.Value == printAttrVal && a.Key.name == printAttrName).FirstOrDefault();
-
-                if (attributeWithValExists)
-                {
-                    foreach (KeyValuePair<AttributeKey, string> kvp in topKeyVal.Value)
-                    {
-                        Console.WriteLine($"Key = {topKeyVal.Key}, attributeKey = {kvp.Key.name}, Type = {kvp.Key.type}, Value = {kvp.Value}");
-                    }
-                }
-            }
-        }
-
-        private static void HandleDeleteKeyCase(string delkey)
-        {
-            var exists = dataStore.ContainsKey(delkey);
-
-            if (!exists)
-            {
-                Console.WriteLine($"Key {delkey} does not exists");
-            }
-
-            dataStore.Remove(delkey);
-
-            Console.WriteLine($"Key {delkey} deleted");
-        }
-
-        private static void HandlePrintValueCase(string printkey)
-        {
-            var attrPrintList = dataStore[printkey];
-
-            foreach (KeyValuePair<AttributeKey, string> kvp in attrPrintList)
-            {
-                Console.WriteLine($"Key = {kvp.Key.name}, Type = {kvp.Key.type}, CreateTime = {kvp.Key.createTimestamp},  Value = {kvp.Value}");
-            }
-            Console.WriteLine();
-        }
-
-        public static void HandleNewKeyCase(string key)
-        {
-            var attributeList = new Dictionary<AttributeKey, string>();
-            dataStore.Add(key, attributeList);
-        }
-
-        public static void HandleAddAttributeCase(string key, string attrkey, string attrValue)
-        {
-            AttributeTypeEnum attrType;
-
-            var valid = IsValidAttribute(attrkey, attrValue, out attrType);
-
-            if (!valid)
-            {
-                Console.WriteLine("Please enter valid type.");
-                return;
-            }
-
-            var attrkeyObj = new AttributeKey
-            {
-                name = attrkey,
-                type = attrType,
-                createTimestamp = DateTime.Now
-            };
-
-            var attrList = dataStore[key];
-            attrList.Add(attrkeyObj, attrValue);
-            dataStore[key] = attrList;
-        }
-
-        public static bool IsValidAttribute(string attrkey, string attrValue, out AttributeTypeEnum attrType)
-        {
-            attrType = AttributeType.GetType(attrValue);
-
-            if (typeStore.ContainsKey(attrkey))
-            {
-                return typeStore[attrkey] == attrType;
-            }
-
-            typeStore.Add(attrkey, attrType);
-
-            return true;
-        }
-
-
-
-
-        public static void InitializeDataStore()
-        {
-            if(dataStore == null)
-            {
-                dataStore = new Dictionary<string, Dictionary<AttributeKey, string>>();
-            }
-        }
-
-        public static void InitializeTypeStore()
-        {
-            if (typeStore == null)
-            {
-                typeStore = new Dictionary<string, AttributeTypeEnum>();
-            }
-        }
-
-
     }
 }
